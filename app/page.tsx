@@ -28,8 +28,17 @@ export default function Home() {
       <main className="flex min-h-screen flex-col items-center justify-between lg:p-24 p-8">
         <div className="grid grid-cols-3 gap-3 transition-all delay-700">
           {grid.gridValues.map((e, index) => {
+            console.log(
+              "🚀 ~ file: page.tsx:31 ~ {grid.gridValues.map ~ index:",
+              index
+            );
             return (
-              <Card key={index} value={e} onClickHandler={onClickHandler} />
+              <Card
+                key={index}
+                index={index}
+                value={e}
+                onClickHandler={onClickHandler}
+              />
             );
           })}
         </div>
@@ -39,14 +48,15 @@ export default function Home() {
 }
 interface CardProps {
   key: any;
+  index: any;
   value: valueType;
   onClickHandler: any;
 }
-const Card = ({ key, value, onClickHandler }: CardProps) => {
+const Card = ({ index, value, onClickHandler }: CardProps) => {
   return (
     <div
-      key={"TTT-" + key}
-      id={`${key}`}
+      key={"TTT-" + index}
+      id={`${index}`}
       className={`w-32 h-32 md:w-40 md:h-40 outline bg-white rounded-md ${
         value == valueType.Empty && " cursor-pointer hover:scale-105 "
       } justify-center`}
