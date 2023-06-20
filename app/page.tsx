@@ -1,15 +1,12 @@
 "use client";
-import { useState } from "react";
-import { RxCross1 } from "react-icons/rx";
-interface TTTGrid {
-  gridValues: valueType[];
-}
+import { useEffect, useState } from "react";
+import { HiX } from "react-icons/hi";
+import Menu from "./Menu";
 enum valueType {
   Empty = 0,
   Cross = 1,
   Circle = 2,
 }
-
 export default function Home() {
   const [grid, setGrid] = useState({
     gridValues: Array(9).fill(valueType.Empty),
@@ -23,15 +20,13 @@ export default function Home() {
       setGrid(grid);
     }
   };
+  const [showMenu, setShowMenu] = useState(true);
   return (
     <>
-      <main className="flex min-h-screen flex-col items-center justify-between lg:p-24 p-8">
+      {showMenu && <Menu setShowMenu={setShowMenu} />}
+      <main className="flex min-h-screen flex-col items-center justify-between lg:p-24 p-4">
         <div className="grid grid-cols-3 gap-3 transition-all delay-700">
           {grid.gridValues.map((e, index) => {
-            console.log(
-              "🚀 ~ file: page.tsx:31 ~ {grid.gridValues.map ~ index:",
-              index
-            );
             return (
               <Card
                 key={index}
@@ -57,13 +52,13 @@ const Card = ({ index, value, onClickHandler }: CardProps) => {
     <div
       key={"TTT-" + index}
       id={`${index}`}
-      className={`w-32 h-32 md:w-40 md:h-40 outline bg-white rounded-md ${
+      className={`w-20 h-20 md:w-36 md:h-36 outline bg-white rounded-md ${
         value == valueType.Empty && " cursor-pointer hover:scale-105 "
       } justify-center`}
       onClick={onClickHandler}
     >
       {value == valueType.Cross && (
-        <RxCross1 className="md:w-32 md:h-32 w-28 h-28 mx-auto my-2 md:my-4" />
+        <HiX className="md:w-28 md:h-28 w-16 h-16 mx-auto my-2 md:my-4" />
       )}
       {value == valueType.Circle && <Circle />}
     </div>
@@ -72,6 +67,6 @@ const Card = ({ index, value, onClickHandler }: CardProps) => {
 
 const Circle = () => {
   return (
-    <div className="md:w-32 md:h-32 w-28 h-28 mx-auto my-2 md:my-4 bg-white rounded-full border-8 border-black"></div>
+    <div className="md:w-20 md:h-20 w-12 h-12 mx-auto my-4 md:my-8 bg-white rounded-full border-8 border-black"></div>
   );
 };
